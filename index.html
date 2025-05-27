@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillSync - Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+
+  <div class="bg-white p-6 sm:p-8 rounded-lg w-full max-w-md shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">Signup</h2>
+    <form id="signupForm" class="space-y-5" novalidate>
+      <input type="email" id="signupEmail" placeholder="Email" required aria-describedby="emailHelp"
+        class="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-base" />
+      <p id="emailHelp" class="text-sm mt-1 text-red-600 hidden">Please enter a valid email address.</p>
+
+      <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" minlength="6" required
+        aria-describedby="passwordHelp"
+        class="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-base" />
+      <p id="passwordHelp" class="text-sm mt-1 text-red-600 hidden">Password must be at least 6 characters.</p>
+
+      <button type="submit" id="submitBtn" disabled
+        class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-base font-semibold">
+        Signup
+      </button>
+    </form>
+
+    <p class="text-center mt-6 text-sm sm:text-base">
+      Already have an account?
+      <a href="login.html" class="text-blue-600 hover:underline">Login</a>
+    </p>
+
+    <p id="message" class="text-center mt-4 text-sm text-gray-600"></p>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('signupEmail');
+    const passwordInput = document.getElementById('signupPassword');
+    const submitBtn = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+    const emailHelp = document.getElementById('emailHelp');
+    const passwordHelp = document.getElementById('passwordHelp');
+
+    let emailTouched = false;
+    let passwordTouched = false;
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePassword(password) {
+      return password.length >= 6;
+    }
+
+    function updateInputState(input, helpText, isValid, touched) {
+      if (!touched) {
+        input.classList.remove('border-red-600', 'border-green-600');
+        helpText.style.display = 'none';
+        return;
+      }
+      if (isValid) {
+        input.classList.remove('border-red-600');
+        input.classList.add('border-green-600');
+        helpText.style.display = 'none';
+      } else {
+        input.classList.remove('border-green-600');
+        input.classList.add('border-red-600');
+        helpText.style.display = 'block';
+      }
+    }
+
+    function checkFormValidity() {
+      const isEmailValid = validateEmail(emailInput.value);
+      const isPasswordValid = validatePassword(passwordInput.value);
+
+      updateInputState(emailInput, emailHelp, isEmailValid, emailTouched);
+      updateInputState(passwordInput, passwordHelp, isPasswordValid, passwordTouched);
+
+      submitBtn.disabled = !(isEmailValid && isPasswordValid);
+    }
+
+    emailInput.addEventListener('blur', () => {
+      emailTouched = true;
+      checkFormValidity();
+    });
+
+    passwordInput.addEventListener('blur', () => {
+      passwordTouched = true;
+      checkFormValidity();
+    });
+
+    emailInput.addEventListener('input', () => {
+      checkFormValidity();
+      message.innerText = '';
+    });
+
+    passwordInput.addEventListener('input', () => {
+      checkFormValidity();
+      message.innerText = '';
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Signing up...';
+      message.innerText = '';
+
+      try {
+        const res = await fetch('http://localhost:5000/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: emailInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await res.json();
+
+        if (data.message === 'Signup successful!') {
+          message.className = 'text-center mt-4 text-sm text-green-600 font-semibold';
+          message.innerText = data.message;
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 1500);
+        } else {
+          message.className = 'text-center mt-4 text-sm text-red-600 font-semibold';
+          message.innerText = data.message;
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Signup';
+        }
+      } catch (error) {
+        message.className = 'text-center mt-4 text-sm text-red-600 font-semibold';
+        message.innerText = 'Network error. Please try again.';
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Signup';
+      }
+    });
+
+    // Initial check to disable submit button on page load, no red/green border or error message shown yet
+    checkFormValidity();
+  </script>
+
+</body>
+
+</html>

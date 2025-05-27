@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillSync - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+
+  <div class="bg-white p-6 sm:p-8 rounded-lg w-full max-w-md shadow-lg relative">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">Login</h2>
+
+    <form id="loginForm" class="space-y-5" novalidate>
+      <input type="email" id="loginEmail" placeholder="Email" required aria-describedby="emailHelp"
+        class="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-base" />
+      <p id="emailHelp" class="text-sm mt-1 text-red-600 hidden">Please enter a valid email address.</p>
+
+      <input type="password" id="loginPassword" placeholder="Password" required aria-describedby="passwordHelp"
+        class="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-base" />
+      <p id="passwordHelp" class="text-sm mt-1 text-red-600 hidden">Please enter your password.</p>
+
+      <button type="submit" id="submitBtn" disabled
+        class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-base font-semibold">
+        Login
+      </button>
+    </form>
+
+    <p class="text-center mt-4 text-sm">
+      <a href="#" onclick="toggleForgotModal()" class="text-blue-600 hover:underline">Forgot Password?</a>
+    </p>
+
+    <p class="text-center mt-4 text-sm">
+      Don't have an account?
+      <a href="index.html" class="text-blue-600 hover:underline">Signup</a>
+    </p>
+
+    <p id="message" class="text-center mt-4 text-sm text-gray-600"></p>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg w-[90%] max-w-sm relative">
+      <button onclick="toggleForgotModal()"
+        class="absolute top-2 right-4 text-gray-600 text-xl font-bold">&times;</button>
+      <h3 class="text-xl font-bold mb-4 text-center text-blue-600">Reset Password</h3>
+      <form id="forgotForm" class="space-y-4">
+        <input type="email" id="forgotEmail" placeholder="Enter your email" required
+          class="w-full px-4 py-2 border rounded-md" />
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+          Send OTP
+        </button>
+      </form>
+      <p id="forgotMessage" class="text-center mt-4 text-sm text-gray-600"></p>
+    </div>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+    const submitBtn = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+    const emailHelp = document.getElementById('emailHelp');
+    const passwordHelp = document.getElementById('passwordHelp');
+
+    let emailTouched = false;
+    let passwordTouched = false;
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePassword(password) {
+      return password.length > 0;
+    }
+
+    function updateInputState(input, helpText, isValid, touched) {
+      if (!touched) {
+        input.classList.remove('border-red-600', 'border-green-600');
+        helpText.style.display = 'none';
+        return;
+      }
+      if (isValid) {
+        input.classList.remove('border-red-600');
+        input.classList.add('border-green-600');
+        helpText.style.display = 'none';
+      } else {
+        input.classList.remove('border-green-600');
+        input.classList.add('border-red-600');
+        helpText.style.display = 'block';
+      }
+    }
+
+    function checkFormValidity() {
+      const isEmailValid = validateEmail(emailInput.value);
+      const isPasswordValid = validatePassword(passwordInput.value);
+
+      updateInputState(emailInput, emailHelp, isEmailValid, emailTouched);
+      updateInputState(passwordInput, passwordHelp, isPasswordValid, passwordTouched);
+
+      submitBtn.disabled = !(isEmailValid && isPasswordValid);
+    }
+
+    emailInput.addEventListener('blur', () => {
+      emailTouched = true;
+      checkFormValidity();
+    });
+
+    passwordInput.addEventListener('blur', () => {
+      passwordTouched = true;
+      checkFormValidity();
+    });
+
+    emailInput.addEventListener('input', () => {
+      checkFormValidity();
+      message.innerText = '';
+    });
+
+    passwordInput.addEventListener('input', () => {
+      checkFormValidity();
+      message.innerText = '';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Logging in...';
+      message.innerText = '';
+
+      try {
+        const res = await fetch('http://localhost:5000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: emailInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await res.json();
+        if (data.message === 'Login successful!') {
+          localStorage.setItem('userEmail', emailInput.value); // Save email
+          message.className = 'text-center mt-4 text-sm text-green-600 font-semibold';
+          message.innerText = data.message;
+          setTimeout(() => {
+            window.location.href = 'home.html';
+          }, 1500);
+        }
+        else {
+          message.className = 'text-center mt-4 text-sm text-red-600 font-semibold';
+          message.innerText = data.message;
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Login';
+        }
+      } catch (error) {
+        message.className = 'text-center mt-4 text-sm text-red-600 font-semibold';
+        message.innerText = 'Network error. Please try again.';
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Login';
+      }
+    });
+
+    // Forgot password modal logic
+    function toggleForgotModal() {
+      const modal = document.getElementById('forgotModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('forgotEmail').value;
+
+      const res = await fetch('http://localhost:5000/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+      document.getElementById('forgotMessage').innerText = data.message;
+    });
+
+    // Initial check
+    checkFormValidity();
+  </script>
+
+</body>
+
+</html>

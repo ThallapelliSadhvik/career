@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSync - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md px-4 sm:px-8 py-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center gap-2">🚀 SkillSync</h1>
+
+      <!-- Hamburger Icon (Mobile) -->
+      <button class="md:hidden text-gray-700 focus:outline-none" onclick="toggleMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <a id="homeLink"
+          class="cursor-pointer text-gray-700 hover:text-blue-600 flex items-center gap-1 transition-transform transform hover:scale-105">🏠
+          Home</a>
+        <a id="coursesLink"
+          class="cursor-pointer text-gray-700 hover:text-blue-600 flex items-center gap-1 transition-transform transform hover:scale-105">📘
+          Courses</a>
+        <a id="jobsLink"
+          class="cursor-pointer text-gray-700 hover:text-blue-600 flex items-center gap-1 transition-transform transform hover:scale-105">💼
+          Jobs</a>
+
+        <!-- Profile / Login (Desktop) -->
+        <div id="profileInfo" class="hidden ml-4 flex items-center space-x-3">
+          <span id="userEmail" class="text-gray-700 font-medium flex items-center gap-1">📊 Dashboard</span>
+          <button onclick="logout()"
+            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform transform hover:scale-105">Logout</button>
+        </div>
+
+        <a href="login.html" id="loginBtn"
+          class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-transform transform hover:scale-105">Login</a>
+      </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden mt-4 hidden flex flex-col space-y-3">
+      <a id="homeLinkMobile" class="text-gray-700 hover:text-blue-600">🏠 Home</a>
+      <a id="coursesLinkMobile" class="text-gray-700 hover:text-blue-600">📘 Courses</a>
+      <a id="jobsLinkMobile" class="text-gray-700 hover:text-blue-600">💼 Jobs</a>
+
+      <!-- Profile / Login (Mobile) -->
+      <div id="profileInfoMobile" class="hidden space-y-2">
+        <span class="text-gray-700 font-medium flex items-center gap-1">📊 Dashboard</span>
+        <button onclick="logout()" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Logout</button>
+      </div>
+
+      <a href="login.html" id="loginBtnMobile"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Login</a>
+    </div>
+  </header>
+
+
+  <!-- Home Hero Section -->
+  <section id="homeHero"
+  class="min-h-screen flex flex-col md:flex-row items-center justify-between px-6 md:px-10 py-20 bg-cover bg-center bg-no-repeat text-white relative"
+  style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80');">
+
+  <!-- Optional: Overlay for better text readability -->
+  <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+
+  <div class="relative z-10 max-w-xl">
+    <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">
+      Sync Your Skills<br>
+      <span class="text-blue-200">with Your Career Goals</span>
+    </h2>
+    <p class="mt-6 text-lg">
+      Connect with personalized learning paths, build your professional profile, and discover job opportunities that match your skills and aspirations.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+      <a href="#" id="getStartedBtn"
+        class="bg-white text-blue-600 font-semibold px-6 py-2 rounded-md hover:bg-blue-100 text-center transition-transform transform hover:scale-105">
+        Learn More
+      </a>
+      <a href="#" id="getStartedJobsBtn"
+        class="border border-white px-6 py-2 rounded-md hover:bg-white hover:text-blue-600 text-center transition-transform transform hover:scale-105">
+        Get Started
+      </a>
+    </div>
+  </div>
+
+  <div class="relative z-10 mt-10 md:mt-0 md:ml-10">
+    <img src="https://cdn.ramseysolutions.net/media/b2c/personalities/ken/blogs/career-goals/careergoals.jpg"
+      alt="SkillSync" class="rounded-lg shadow-xl w-full max-w-[500px]" onerror="this.style.display='none'">
+  </div>
+</section>
+
+  <!-- Courses Section -->
+  <section id="coursesHero"
+    class="hidden min-h-screen px-4 sm:px-6 md:px-10 py-20 bg-cover bg-center bg-no-repeat text-white text-center flex flex-col justify-center items-center relative"
+    style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1470&q=80');">
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+
+    <div class="relative z-10 w-full max-w-7xl">
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">📘 Explore Our Courses</h2>
+      <p class="text-base sm:text-lg mb-10">Gain in-demand skills with industry-relevant online courses.</p>
+
+      <div class="w-full text-left text-gray-900">
+        <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-white text-center">Featured Courses</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+          <!-- Repeat your course cards here (no changes inside individual course cards) -->
+
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+            <img
+              src="https://imagedelivery.net/IEMzXmjRvW0g933AN5ejrA/wwwnotionso-image-prod-files-secures3us-west-2amazonawscom-27d26c9f-e785-470a-8eb9-f6f50afd9d8a-4492bf5a-25bc-462e-b8f5-7d53811a69c7-intro_to_web_developmentpng/public"
+              alt="Web Dev" class="w-full h-48 object-cover">
+            <div class="p-5">
+              <div class="flex gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Web Development</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2 py-1 rounded">beginner</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Web Development Fundamentals</h3>
+              <p class="text-sm text-gray-600 mb-4">Learn HTML, CSS, and JavaScript to build responsive websites.</p>
+              <div class="flex justify-between text-sm text-gray-700 mb-2">
+                <span>⭐ 4.7</span>
+                <span>8 weeks</span>
+              </div>
+              <div class="flex justify-between items-center text-sm text-gray-500">
+                <span>1,254 students</span>
+                <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 2 -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+            <img src="https://d2sofvawe08yqg.cloudfront.net/datascience-essentials/s_hero2x?1651881418"
+              alt="Data Science" class="w-full h-48 object-cover">
+            <div class="p-5">
+              <div class="flex gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Data Science</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2 py-1 rounded">intermediate</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Data Science Essentials</h3>
+              <p class="text-sm text-gray-600 mb-4">Master data analysis, visualization, and machine learning.</p>
+              <div class="flex justify-between text-sm text-gray-700 mb-2">
+                <span>⭐ 4.8</span>
+                <span>12 weeks</span>
+              </div>
+              <div class="flex justify-between items-center text-sm text-gray-500">
+                <span>876 students</span>
+                <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 3 -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrrDJHdnFou05koFNsnkJQ6oVdC-MV1YpRA&s"
+              alt="UI/UX Design" class="w-full h-48 object-cover">
+            <div class="p-5">
+              <div class="flex gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Design</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2 py-1 rounded">beginner</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">UX/UI Design Principles</h3>
+              <p class="text-sm text-gray-600 mb-4">Create user-centered designs and intuitive interfaces.</p>
+              <div class="flex justify-between text-sm text-gray-700 mb-2">
+                <span>⭐ 4.6</span>
+                <span>10 weeks</span>
+              </div>
+              <div class="flex justify-between items-center text-sm text-gray-500">
+                <span>743 students</span>
+                <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 4 -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7F90n6EQRww9duFE52S_mx68bLoZmk6WOQ&s"
+              alt="Python Programming" class="w-full h-48 object-cover">
+            <div class="p-5">
+              <div class="flex gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Programming</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2 py-1 rounded">beginner</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Python Programming Basics</h3>
+              <p class="text-sm text-gray-600 mb-4">Start coding with Python—covering syntax, loops, and functions.</p>
+              <div class="flex justify-between text-sm text-gray-700 mb-2">
+                <span>⭐ 4.5</span>
+                <span>6 weeks</span>
+              </div>
+              <div class="flex justify-between items-center text-sm text-gray-500">
+                <span>1,036 students</span>
+                <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 5 -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+            <img src="https://i.ytimg.com/vi/VdQIe3Zzxvs/maxresdefault.jpg" alt="Cybersecurity"
+              class="w-full h-48 object-cover">
+            <div class="p-5">
+              <div class="flex gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Cybersecurity</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2 py-1 rounded">intermediate</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Cybersecurity Fundamentals</h3>
+              <p class="text-sm text-gray-600 mb-4">Understand network security, threat modeling, and ethical hacking.
+              </p>
+              <div class="flex justify-between text-sm text-gray-700 mb-2">
+                <span>⭐ 4.6</span>
+                <span>10 weeks</span>
+              </div>
+              <div class="flex justify-between items-center text-sm text-gray-500">
+                <span>654 students</span>
+                <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 6 -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+            <img src="https://zd-brightspot.s3.us-east-1.amazonaws.com/wp-content/uploads/2022/04/26162217/AWS.png"
+              alt="Cloud Computing" class="w-full h-48 object-cover">
+            <div class="p-5">
+              <div class="flex gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Cloud</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2 py-1 rounded">advanced</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Cloud Computing with AWS</h3>
+              <p class="text-sm text-gray-600 mb-4">Deploy and manage applications on the AWS cloud platform.</p>
+              <div class="flex justify-between text-sm text-gray-700 mb-2">
+                <span>⭐ 4.9</span>
+                <span>14 weeks</span>
+              </div>
+              <div class="flex justify-between items-center text-sm text-gray-500">
+                <span>921 students</span>
+                <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+  </section>
+
+  <!-- Jobs Section -->
+<section id="jobsHero"
+  class="hidden  px-4 sm:px-6 lg:px-10 py-16 sm:py-20 bg-cover bg-center text-gray-900 text-center flex flex-col justify-center items-center"
+  style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80');">
+  
+  <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 sm:mb-6">💼 Job Opportunities</h2>
+  <p class="text-base sm:text-lg max-w-3xl mb-10 sm:mb-12 text-white">Find jobs that match your skills and career goals.</p>
+
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <!-- All your job cards go here as-is -->
+      <!-- For example: -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+        <img
+          src="https://blog.pwskills.com/wp-content/uploads/2023/04/Career-Option-After-Becoming-a-Web-Developer-01-1.png"
+          alt="Web Developer Path" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2">Web Developer Career Path</h3>
+          <p class="text-sm text-gray-600 mb-4">Comprehensive curriculum to become a professional web developer.</p>
+          <div class="mb-2">
+            <p class="text-sm font-medium mb-1 text-gray-700">Skills you'll gain:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">HTML</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">CSS</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">JavaScript</span>
+              <span class="bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded">+2 more</span>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium mb-1">Career opportunities:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Frontend Developer</li>
+              <li>Full-Stack Developer</li>
+            </ul>
+          </div>
+          <a href="#" class="text-blue-600 font-medium hover:underline mt-4 inline-block">Explore this path</a>
+        </div>
+      </div>
+
+
+
+      <!-- Path 2 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+        <img
+          src="https://media.licdn.com/dms/image/v2/D4D12AQH-4qFMe_jH4Q/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1692115882868?e=2147483647&v=beta&t=hSAcFIMqzIuE7zSxtaRS_asJKFzL0AYI8T3g1wfXsqY"
+          alt="Data Science Path" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2">Data Science Career Path</h3>
+          <p class="text-sm text-gray-600 mb-4">Comprehensive curriculum to become a data scientist.</p>
+          <div class="mb-2">
+            <p class="text-sm font-medium mb-1 text-gray-700">Skills you'll gain:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">Python</span>
+              <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">Statistics</span>
+              <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">Machine
+                Learning</span>
+              <span class="bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded">+1 more</span>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium mb-1">Career opportunities:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Data Analyst</li>
+              <li>Data Scientist</li>
+              <li>Machine Learning Engineer</li>
+            </ul>
+          </div>
+          <a href="#" class="text-blue-600 font-medium hover:underline mt-4 inline-block">Explore this path</a>
+        </div>
+      </div>
+
+
+
+      <!-- Path 3 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+        <img src="https://img.uxcel.com/assets/marketing/open-graph-v2/OG+-+Uxcel+-+CP+-+UX+Designer.jpg"
+          alt="UX/UI Designer Path" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2">UX/UI Designer Path</h3>
+          <p class="text-sm text-gray-600 mb-4">Comprehensive curriculum to become a UX/UI designer.</p>
+          <div class="mb-2">
+            <p class="text-sm font-medium mb-1 text-gray-700">Skills you'll gain:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2 py-1 rounded">UI Design</span>
+              <span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2 py-1 rounded">UX Research</span>
+              <span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2 py-1 rounded">Figma</span>
+              <span class="bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded">+1 more</span>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium mb-1">Career opportunities:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>UI Designer</li>
+              <li>UX Designer</li>
+              <li>Product Designer</li>
+            </ul>
+          </div>
+          <a href="#" class="text-blue-600 font-medium hover:underline mt-4 inline-block">Explore this path</a>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+        <img src="https://clarusway.com/wp-content/uploads/2023/03/cybersecurity-caree-paths-1024x511.jpg"
+          alt="Cybersecurity Path" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2">Cybersecurity Career Path</h3>
+          <p class="text-sm text-gray-600 mb-4">Build skills to protect systems and networks from cyber threats and
+            attacks.</p>
+          <div class="mb-2">
+            <p class="text-sm font-medium mb-1 text-gray-700">Skills you'll gain:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded">Network Security</span>
+              <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded">Ethical Hacking</span>
+              <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded">Incident Response</span>
+              <span class="bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded">+1 more</span>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium mb-1">Career opportunities:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Security Analyst</li>
+              <li>Penetration Tester</li>
+            </ul>
+          </div>
+          <a href="#" class="text-blue-600 font-medium hover:underline mt-4 inline-block">Explore this path</a>
+        </div>
+      </div>
+
+      <!-- Path 4 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+        <img
+          src="https://cdn.prod.website-files.com/65130e79c72ae8812db3412e/656fb23a83a666b1e72c2b09_863e37851ec66a3721620902d63bf979.webp"
+          alt="UX/UI Designer Path" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2">UX/UI Designer Career Path</h3>
+          <p class="text-sm text-gray-600 mb-4">Learn to create intuitive and engaging user experiences and interfaces.
+          </p>
+          <div class="mb-2">
+            <p class="text-sm font-medium mb-1 text-gray-700">Skills you'll gain:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">Wireframing</span>
+              <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">Prototyping</span>
+              <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded">User Research</span>
+              <span class="bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded">+2 more</span>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium mb-1">Career opportunities:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>UX Designer</li>
+              <li>Interaction Designer</li>
+            </ul>
+          </div>
+          <a href="#" class="text-blue-600 font-medium hover:underline mt-4 inline-block">Explore this path</a>
+        </div>
+      </div>
+
+
+      <!-- Path 5 -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+        <img
+          src="https://media.licdn.com/dms/image/v2/D5622AQGSsOnT91VbJA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1685037690947?e=2147483647&v=beta&t=Uk49Zuge9y0Xpl85xHHeDaAOU4gmNkO8KibmlB5Asa8"
+          alt="Cloud Engineer Path" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2">Cloud Engineer Career Path</h3>
+          <p class="text-sm text-gray-600 mb-4">Master cloud platforms to design, deploy, and manage scalable
+            applications.</p>
+          <div class="mb-2">
+            <p class="text-sm font-medium mb-1 text-gray-700">Skills you'll gain:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded">AWS</span>
+              <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded">Docker</span>
+              <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded">Kubernetes</span>
+              <span class="bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded">+2 more</span>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium mb-1">Career opportunities:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Cloud Solutions Architect</li>
+              <li>DevOps Engineer</li>
+            </ul>
+          </div>
+          <a href="#" class="text-blue-600 font-medium hover:underline mt-4 inline-block">Explore this path</a>
+        </div>
+      </div>
+
+      <!-- Add more job cards similarly -->
+    </div>
+  </section>
+
+
+
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="bg-blue-50 text-blue-900 text-sm mt-10 select-none">
+    <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <!-- About -->
+      <div class="hover:bg-blue-100 rounded-md p-3 transition-colors duration-300">
+        <h2 class="text-xl font-semibold mb-2 hover:text-blue-700 transition-colors duration-300 cursor-default">
+          SkillSync</h2>
+        <p>Connecting learners with career opportunities through personalized skill development.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="hover:bg-blue-100 rounded-md p-3 transition-colors duration-300">
+        <h3 class="text-lg font-semibold mb-2 hover:text-blue-700 transition-colors duration-300 cursor-default">Quick
+          Links</h3>
+        <ul class="space-y-1">
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Home</a>
+          </li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Courses</a>
+          </li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Job
+              Board</a></li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">About
+              Us</a></li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- For Learners -->
+      <div class="hover:bg-blue-100 rounded-md p-3 transition-colors duration-300">
+        <h3 class="text-lg font-semibold mb-2 hover:text-blue-700 transition-colors duration-300 cursor-default">For
+          Learners</h3>
+        <ul class="space-y-1">
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Learning
+              Paths</a></li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Certifications</a>
+          </li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Skill
+              Assessments</a></li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Resume
+              Builder</a></li>
+          <li><a href="#"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block transform hover:scale-105">Career
+              Resources</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="hover:bg-blue-100 rounded-md p-3 transition-colors duration-300">
+        <h3 class="text-lg font-semibold mb-2 hover:text-blue-700 transition-colors duration-300 cursor-default">Contact
+          Us</h3>
+        <ul class="space-y-1">
+          <li>123 Learning Street, Education City, EC 12345</li>
+          <li>+1 (123) 456-7890</li>
+          <li><a href="mailto:info@skillsync.com"
+              class="hover:underline hover:text-blue-700 transition duration-300 ease-in-out inline-block">info@skillsync.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center text-blue-600 py-4 border-t border-blue-200 select-text">
+      &copy; 2025 SkillSync. All rights reserved.
+    </div>
+  </footer>
+
+
+
+  <!-- JavaScript -->
+  <!-- JavaScript -->
+  <script>
+    window.onload = () => {
+      const email = localStorage.getItem('userEmail');
+
+      // Elements for desktop and mobile
+      const profileInfo = document.getElementById('profileInfo');
+      const userEmail = document.getElementById('userEmail');
+      const loginBtn = document.getElementById('loginBtn');
+
+      const profileInfoMobile = document.getElementById('profileInfoMobile');
+      const loginBtnMobile = document.getElementById('loginBtnMobile');
+
+      // Show profile info if logged in
+      if (email) {
+        profileInfo.classList.remove('hidden');
+        profileInfoMobile.classList.remove('hidden');
+        userEmail.textContent = `📊 Dashboard (${email})`;
+        loginBtn.classList.add('hidden');
+        loginBtnMobile.classList.add('hidden');
+      }
+
+      // Section switching logic
+      const navLinks = {
+        homeLink: 'homeHero',
+        coursesLink: 'coursesHero',
+        jobsLink: 'jobsHero',
+        homeLinkMobile: 'homeHero',
+        coursesLinkMobile: 'coursesHero',
+        jobsLinkMobile: 'jobsHero'
+      };
+
+      // Add event listeners for nav links (both desktop and mobile)
+      Object.entries(navLinks).forEach(([linkId, sectionId]) => {
+        const linkElement = document.getElementById(linkId);
+        if (linkElement) {
+          linkElement.addEventListener('click', () => {
+            // Hide all sections
+            Object.values(navLinks).forEach(id => {
+              const section = document.getElementById(id);
+              if (section) section.classList.add('hidden');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) targetSection.classList.remove('hidden');
+
+            // Close mobile menu after click (optional for UX)
+            const menu = document.getElementById("mobileMenu");
+            if (menu && !menu.classList.contains("hidden")) {
+              menu.classList.add("hidden");
+            }
+          });
+        }
+      });
+
+      // Handle "Get Started" to Courses
+      const getStartedBtn = document.getElementById('getStartedBtn');
+      if (getStartedBtn) {
+        getStartedBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchSection('coursesHero');
+        });
+      }
+
+      // Handle "Get Started" to Jobs
+      const getStartedJobsBtn = document.getElementById('getStartedJobsBtn');
+      if (getStartedJobsBtn) {
+        getStartedJobsBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchSection('jobsHero');
+        });
+      }
+
+      // Helper function to switch section
+      function switchSection(showId) {
+        Object.values(navLinks).forEach(id => {
+          const section = document.getElementById(id);
+          if (section) section.classList.add('hidden');
+        });
+        const showSection = document.getElementById(showId);
+        if (showSection) showSection.classList.remove('hidden');
+      }
+    };
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('userEmail');
+      window.location.href = 'login.html';
+    }
+
+    // Toggle mobile menu
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      if (menu) menu.classList.toggle("hidden");
+    }
+  </script>
+
+
+</body>
+
+</html>
